@@ -1,0 +1,166 @@
+/*
+ * Pantallas de RRHH — Opción F (unidad 03, 2026-10-14): tablero del período en cinco columnas, grilla de empleados con
+ * 12 meses en puntos, asignación con control de CUIL y retoques del resto del panel. Usa los tokens de css/app.css.
+ * Sin animaciones. Las barras de avance son <svg> con <rect> (atributos, no style=: la CSP es style-src 'self').
+ */
+
+/* ---------- Encabezado de página ---------- */
+.encabezado { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .5rem 1.1rem; margin: .25rem 0 1rem; }
+.encabezado h1 { margin: 0; font-family: var(--fuente-titulo); font-size: 2.1rem; letter-spacing: -.035em; }
+.encabezado-sub { margin: 0 0 3px; color: var(--texto-tenue); font-size: .875rem; }
+.encabezado-espacio { flex: 1; }
+.encabezado-acciones { display: flex; flex-wrap: wrap; gap: .5rem; }
+.encabezado-acciones .boton, .encabezado-acciones button { margin-top: 0; }
+
+/* ---------- Estado del portal (arriba del tablero) ---------- */
+.estado-portal { display: flex; flex-wrap: wrap; gap: .4rem 1.75rem; margin: 0 0 1rem; color: var(--texto-2); font-size: .85rem; }
+.estado-portal > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem; }
+.estado-portal dt { color: var(--texto); font-weight: 700; }
+.estado-portal dd { margin: 0; }
+
+/* ---------- Pestañas de período ---------- */
+.pestanas { display: flex; gap: 8px; overflow-x: auto; margin: 0 -1.75rem; padding: 0 1.75rem; scrollbar-width: thin; }
+.pestana { flex: none; width: 158px; padding: 10px 13px 11px; border: 1px solid var(--borde); border-bottom: 0; border-radius: 14px 14px 0 0; background: #fff; color: var(--texto); text-decoration: none; }
+.pestana b { display: block; font-size: .95rem; letter-spacing: -.01em; }
+.pestana-dato { display: flex; justify-content: space-between; margin-top: 1px; color: var(--texto-tenue); font-size: .75rem; }
+.pestana-devolver { display: block; margin-top: 5px; color: var(--dev-osc); font-size: .72rem; font-weight: 700; }
+.pestana[aria-current="page"] { background: var(--carbon); border-color: var(--carbon); color: var(--sobre-oscuro); }
+.pestana[aria-current="page"] b { color: var(--naranja); }
+.pestana[aria-current="page"] .pestana-dato { color: #CFCFDC; }
+.pestana[aria-current="page"] .pestana-devolver { color: var(--dev); }
+/* Plegables (ajuste 2026-10-14): <details> contraído por defecto; el <summary> es la línea compacta del período elegido. */
+.pestanas-resumen { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1rem; margin: 0 0 10px; padding: 9px 14px; border: 1px solid var(--borde); border-radius: 14px; background: #fff; color: var(--texto-2); font-size: .85rem; list-style: none; cursor: pointer; user-select: none; }
+.pestanas-resumen::-webkit-details-marker { display: none; }
+.pestanas-resumen::marker { content: ""; }
+.pestanas-resumen:hover { border-color: var(--naranja-oscura); }
+.pestanas-resumen:focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; }
+.pestanas-elegido { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .65rem; }
+.pestanas-elegido b { color: var(--texto); font-size: .95rem; letter-spacing: -.01em; }
+.pestanas-elegido .pestana-devolver { display: inline; margin: 0; }
+.pestanas-abrir, .pestanas-cerrar { margin-left: auto; color: var(--texto); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.pestanas-plegable[open] .pestanas-abrir, .pestanas-plegable:not([open]) .pestanas-cerrar { display: none; }
+.avance { display: block; width: 100%; height: 5px; margin-top: 7px; overflow: hidden; border-radius: 5px; background: #DCDCE8; }
+.avance-grande { height: 10px; border-radius: 10px; }
+.pestana[aria-current="page"] .avance, .periodo-cabecera .avance { background: var(--linea-oscura); }
+.seg-ok { fill: var(--ok); }
+.seg-disc { fill: var(--disc); }
+.seg-pend { fill: var(--pend); }
+.seg-sa { fill: var(--sa); }
+
+/* ---------- Cabecera del período ---------- */
+.periodo-cabecera { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem; margin: 0 -1.75rem; padding: 16px 1.75rem 18px; background: var(--carbon); color: var(--sobre-oscuro); }
+.periodo-cabecera h1 { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: 0; font-family: var(--fuente-titulo); font-size: 1.9rem; line-height: 1; }
+.periodo-estado { display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 7px; background: var(--linea-oscura); color: var(--sobre-oscuro); font-size: .75rem; font-weight: 700; letter-spacing: 0; }
+.periodo-meta { margin: 6px 0 0; color: #BDBDCB; font-size: .8rem; }
+.periodo-meta .mono { color: var(--sobre-oscuro); }
+.periodo-avance { width: min(430px, 100%); }
+.periodo-avance-linea { display: flex; justify-content: space-between; gap: .75rem; margin: 0; color: #CFCFDC; font-size: .82rem; }
+.periodo-avance-linea b { color: var(--naranja); font-size: .95rem; }
+.leyenda { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0 0; padding: 0; list-style: none; color: #CFCFDC; font-size: .72rem; }
+.leyenda i { display: inline-block; width: 8px; height: 8px; margin-right: 4px; border-radius: 2px; }
+.ley-ok { background: var(--ok); }
+.ley-disc { background: var(--disc); }
+.ley-pend { background: var(--pend); }
+.ley-sa { background: var(--sa); }
+.periodo-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.periodo-acciones .boton, .periodo-acciones button { margin-top: 0; }
+.periodo-acciones .boton.secundario, .periodo-acciones button.secundario { color: var(--sobre-oscuro); border-color: #5A5A7A; }
+/* «Descargar firmados (ZIP)» es la acción principal: naranja. Va por el href porque la clase la fija PeriodoPanelTest. */
+.periodo-acciones a.boton.secundario[href$="/zip"] { background: var(--naranja); border-color: var(--naranja); color: var(--tinta); }
+
+/* ---------- Tablero: cinco columnas ---------- */
+.tablero { display: grid; grid-template-columns: repeat(5, minmax(220px, 1fr)); gap: 14px; padding-top: 16px; overflow-x: auto; }
+.columna { position: relative; min-height: 320px; padding: 0 10px 10px; border-radius: 16px; background: var(--hueso-2); }
+.columna-cabeza { display: flex; align-items: center; gap: 8px; padding: 13px 4px 4px; }
+.columna-cabeza h2 { margin: 0; font-size: .95rem; letter-spacing: -.01em; }
+.columna-barra { position: absolute; left: 14px; right: 14px; top: 0; height: 4px; border-radius: 0 0 4px 4px; }
+.columna-sin_asignar .columna-barra { background: var(--sa); }
+.columna-pendiente .columna-barra { background: var(--pend); }
+.columna-conforme .columna-barra { background: var(--ok); }
+.columna-disconforme .columna-barra { background: var(--disc); }
+.columna-devuelto .columna-barra { background: var(--dev); }
+.columna-cuenta { margin-left: auto; padding: 1px 8px; border: 1px solid var(--borde); border-radius: 8px; background: #fff; font-family: var(--fuente-mono); font-size: .8rem; font-weight: 700; }
+.columna-sub { margin: 0; padding: 0 4px 10px; color: var(--texto-tenue); font-size: .75rem; }
+.columna-lista { margin: 0; padding: 0; list-style: none; }
+.columna-vacia { margin: 0; padding: 18px 14px; border: 1.5px dashed #B4B4C4; border-radius: 13px; color: var(--texto-2); font-size: .8rem; line-height: 1.45; text-align: center; }
+.columna-vacia b { display: block; margin-bottom: 4px; color: var(--texto); font-size: .875rem; }
+.icono-circulo { display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; margin: 0 auto 10px; border-radius: 50%; background: var(--dev-suave); color: var(--dev-osc); }
+/* Archivados en el servidor (ajuste 2026-10-14): lista compacta, un renglón por archivo, sin tarjetas. El nombre va entero
+   (es el dato que se busca) y la fecha de archivado abajo en Space Mono; en una columna de ~240px no entran en una línea. */
+.columna-archivos { margin: 0; padding: 0; list-style: none; border: 1px solid var(--borde); border-radius: 12px; background: #fff; overflow: hidden; }
+.columna-archivo { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "nombre acciones" "fecha acciones"; column-gap: 8px; padding: 6px 10px 7px; border-top: 1px solid var(--hueso-2); line-height: 1.25; }
+.columna-archivo:first-child { border-top: 0; }
+.columna-archivo-nombre { grid-area: nombre; min-width: 0; font-size: .78rem; font-weight: 700; overflow-wrap: anywhere; }
+.columna-archivo-sep { display: none; }
+.columna-archivo-fecha { grid-area: fecha; color: var(--texto-2); font-size: .68rem; white-space: nowrap; }
+.columna-archivo-acciones { display: inline-flex; grid-area: acciones; gap: 7px; align-self: center; }
+.columna-archivo-acciones a { display: inline-flex; color: var(--texto-tenue); }
+.columna-archivo-acciones a:hover, .columna-archivo-acciones a:focus-visible { color: var(--dev-osc); }
+.kanban-tarjeta { margin-bottom: 9px; padding: 11px 11px 10px; border: 1px solid var(--borde); border-radius: 13px; background: #fff; box-shadow: 0 1px 0 rgba(6, 5, 23, .05); }
+.kanban-cabeza { display: flex; align-items: center; gap: 10px; }
+.kanban-nombre { flex: 1; min-width: 0; margin: 0; line-height: 1.2; }
+.kanban-nombre b { display: block; font-size: .85rem; overflow-wrap: anywhere; }
+.kanban-nombre span { color: var(--texto-2); font-size: .72rem; }
+.av-sin-asignar { background: var(--sa-suave); color: var(--sa-osc); }
+.kanban-nota { display: flex; gap: 6px; margin: 8px 0 0; color: var(--sa-osc); font-size: .75rem; font-weight: 600; }
+.kanban-fecha { display: flex; align-items: center; gap: 6px; margin: 9px 0 0; color: var(--texto-2); font-size: .75rem; }
+.kanban-fecha .mono { font-size: .72rem; }
+.kanban-cita { margin: 8px 0 0; padding: 6px 9px; border-left: 3px solid var(--disc); border-radius: 0 8px 8px 0; background: var(--disc-suave); color: #6E1A10; font-size: .8rem; font-weight: 500; }
+.kanban-etiquetas { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.kanban-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .75rem; margin-top: 9px; font-size: .78rem; font-weight: 600; }
+.kanban-acciones .boton { min-height: 32px; margin: 0; padding: .3rem .8rem; border-radius: 9px; font-size: .8rem; }
+.kanban-acciones .boton-link { font-size: .78rem; }
+
+/* ---------- Empleados: filtros y grilla de fichas ---------- */
+.buscar-empleados { margin-bottom: .75rem; }
+.filtros { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 1rem; }
+.filtro { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1.5px solid var(--borde); border-radius: 99px; background: #fff; color: var(--texto); font-size: .85rem; font-weight: 600; text-decoration: none; }
+.filtro .mono { font-size: .72rem; opacity: .8; }
+.filtro[aria-current="page"] { background: var(--tinta); border-color: var(--tinta); color: var(--naranja); }
+.leyenda-puntos { display: flex; flex-wrap: wrap; gap: 14px; margin: 0 0 0 auto; padding: 0; list-style: none; color: var(--texto-2); font-size: .78rem; }
+.leyenda-puntos li { display: inline-flex; align-items: center; gap: 5px; }
+.grilla-empleados { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; margin: 0 0 1rem; padding: 0; list-style: none; }
+.ficha { position: relative; height: 100%; padding: 16px 16px 14px; border: 1px solid var(--borde); border-radius: 18px; background: #fff; }
+.ficha-baja { background: #F7F7FA; }
+.ficha-baja .avatar { filter: grayscale(1); opacity: .6; }
+.ficha-cabeza { display: flex; align-items: flex-start; justify-content: space-between; }
+.ficha h3 { margin: 11px 0 0; font-size: .97rem; line-height: 1.2; }
+.ficha-id { margin: 4px 0 0; color: var(--texto-2); font-family: var(--fuente-mono); font-size: .75rem; }
+.ficha-mail { margin: 3px 0 0; overflow: hidden; color: var(--texto-tenue); font-size: .75rem; text-overflow: ellipsis; white-space: nowrap; }
+.ficha-mail.sin { color: var(--pend-osc); font-weight: 600; }
+.ficha-meses { display: flex; justify-content: space-between; margin: 12px 0 0; padding-top: 11px; border-top: 1px dashed var(--borde); color: var(--texto-tenue); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.puntos { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; margin: 8px 0 0; padding: 0; list-style: none; text-align: center; }
+.puntos i { display: block; width: 13px; height: 13px; margin: 0 auto; border-radius: 50%; }
+.leyenda-puntos i { display: block; width: 11px; height: 11px; border-radius: 50%; }
+.puntos span { display: block; margin-top: 3px; color: var(--texto-tenue); font-size: .6rem; font-weight: 600; }
+.p-firmado_conforme i { background: var(--ok); }
+.p-firmado_disconforme i { background: var(--disc); }
+.p-pendiente_firma i { background: var(--pend); }
+.p-sin_recibo i { background: transparent; border: 1.5px solid #B4B4C4; }
+.p-fuera i { background: #E4E4EE; }
+.ficha-resumen { min-height: 16px; margin: 9px 0 0; color: var(--texto-2); font-size: .75rem; }
+.r-disc { color: var(--disc-osc); font-weight: 700; }
+.r-pend { color: var(--pend-osc); font-weight: 700; }
+.nunca { color: var(--sa-osc); font-weight: 700; }
+.ficha-acciones { margin: 8px 0 0; font-size: .8rem; font-weight: 600; }
+
+/* ---------- Asignar ---------- */
+.asignar { display: grid; grid-template-columns: minmax(0, 3fr) minmax(280px, 2fr); gap: 1.25rem; align-items: start; }
+.asignar .visor { height: 78vh; }
+.asignar-leido { font-size: .9rem; }
+.asignar-periodo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 .75rem; }
+.cuil-distinto { margin-top: 1rem; }
+.cuil-distinto .casilla { margin-bottom: 0; }
+
+/* ---------- Ingreso al panel y filtros en línea ---------- */
+.acceso { max-width: 26rem; margin: 2rem auto 0; }
+.formulario-en-linea { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0 1rem; }
+.formulario-en-linea > div { flex: 1; min-width: 9rem; }
+.formulario-en-linea button, .formulario-en-linea .boton { margin-top: .85rem; }
+
+@media (max-width: 900px) {
+    .asignar, .asignar-periodo { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+    .pestanas, .periodo-cabecera { margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
+}

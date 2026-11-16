@@ -1,0 +1,337 @@
+/*
+ * Pantallas del empleado — Opción F (unidad 02, 2026-10-14): ingreso en dos pasos, billetera de recibos, recibo abierto
+ * y firma deslizante. Usa los tokens y componentes de css/app.css (no redefine clases de ahí).
+ * La única animación del portal es la de la perilla de la firma, y se apaga con prefers-reduced-motion.
+ */
+
+/* ---------- Ingreso (body.tema-ingreso: fondo carbón, letras naranja) ---------- */
+.tema-ingreso { overflow-x: hidden; }
+.ingreso { position: relative; }
+.ingreso::before { content: ""; position: absolute; right: -110px; top: -10px; width: 220px; height: 220px; border: 34px solid rgba(240, 138, 36, .06); border-radius: 50%; pointer-events: none; }
+.ingreso > * { position: relative; }
+.ingreso h1 { margin: 1.25rem 0 0; font-family: var(--fuente-titulo); font-size: 2.15rem; line-height: 1.05; }
+.ingreso-ayuda { margin: .6rem 0 0; color: var(--texto-tenue); font-weight: 500; }
+.ingreso-pasos { display: flex; gap: 8px; margin: 1.1rem 0 0; padding: 0; list-style: none; }
+.ingreso-pasos li { flex: 1; padding: 8px 11px; border: 1.5px dashed rgba(240, 138, 36, .45); border-radius: 12px; color: var(--texto-tenue); font-size: .8rem; font-weight: 600; line-height: 1.25; }
+.ingreso-pasos b { display: block; font-size: .68rem; letter-spacing: .1em; opacity: .75; }
+.ingreso-pasos li.activo { background: var(--acento); border-style: solid; border-color: var(--acento); color: var(--sobre-acento); }
+.ingreso:not(.con-js) .ingreso-pasos, .ingreso:not(.con-js) .ingreso-ranuras { display: none; }
+.ingreso-etiqueta { margin-top: 1.4rem; color: var(--texto-tenue); font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.ingreso input.ingreso-cuil { padding: .1rem 0 .2rem; border: 0; border-radius: 0; background: transparent; color: var(--texto); caret-color: var(--texto); font-family: var(--fuente-mono); font-size: 2.1rem; font-weight: 700; letter-spacing: .02em; line-height: 1.1; }
+.ingreso input.ingreso-cuil:focus { box-shadow: none; }
+.ingreso input.ingreso-cuil:focus-visible { outline: 2px solid var(--texto); outline-offset: 4px; }
+.ingreso-ranuras { display: flex; gap: 4px; margin-top: .5rem; }
+.ingreso-ranuras i { display: block; width: 19px; height: 4px; border-radius: 2px; background: var(--texto); opacity: .3; }
+.ingreso-ranuras i.lleno { opacity: 1; }
+.ingreso-ranuras i.corte { margin-right: 12px; }
+.ingreso-pista { margin: .6rem 0 0; color: var(--texto-tenue); font-size: .85rem; font-weight: 500; }
+.teclado { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 1.1rem; }
+.teclado .tecla { height: 60px; min-height: 0; margin: 0; padding: 0; border: 0; border-radius: 18px; background: rgba(240, 138, 36, .08); color: var(--texto); font-family: var(--fuente-titulo); font-size: 1.7rem; font-weight: 600; }
+.teclado .tecla:active { background: rgba(240, 138, 36, .18); }
+.teclado .tecla-borrar { background: transparent; border: 1.5px solid rgba(240, 138, 36, .25); }
+.teclado .tecla-seguir { flex-direction: column; gap: 0; background: var(--acento); color: var(--sobre-acento); font-size: .75rem; font-weight: 700; }
+.ingreso-paso + .ingreso-paso { margin-top: .5rem; }
+.ingreso-volver { margin-top: .9rem; color: var(--texto-tenue); }
+.ingreso-enlaces { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1rem; margin-top: 1.1rem; font-size: .875rem; font-weight: 600; }
+.ingreso-seguro { display: inline-flex; align-items: center; gap: 6px; color: var(--texto-tenue); font-size: .75rem; font-weight: 500; }
+
+/* ---------- Pantallas simples (olvidé mi clave, clave nueva, cambiar clave, consentimiento) ---------- */
+.pantalla-simple { margin-top: 1rem; }
+.pantalla-simple h1 { font-family: var(--fuente-titulo); font-size: 1.7rem; }
+
+/* ---------- Mis recibos: billetera ---------- */
+.saludo h1 { margin: .6rem 0 .35rem; font-family: var(--fuente-titulo); font-size: 1.9rem; }
+.saludo .titular { color: var(--texto-2); }
+.saludo-sub { margin: .35rem 0 0; color: var(--texto-tenue); font-size: .9rem; }
+.saludo-sub b { color: var(--pend); }
+.anios { display: flex; gap: 8px; margin: 1rem -1.25rem 0 0; padding-right: 1.25rem; overflow-x: auto; scrollbar-width: none; }
+.chip-anio { flex: none; padding: 8px 16px; border: 1.5px solid var(--borde); border-radius: 99px; color: var(--texto); font-size: .95rem; font-weight: 600; text-decoration: none; }
+.chip-anio small { margin-left: 6px; color: var(--texto-tenue); font-size: .78rem; font-weight: 500; }
+.chip-anio[aria-current="true"] { background: var(--acento); border-color: var(--acento); color: var(--sobre-acento); }
+.chip-anio[aria-current="true"] small { color: var(--naranja-tinta); }
+.seccion-titulo { display: flex; align-items: baseline; justify-content: space-between; margin: 1.4rem 0 .6rem; color: var(--texto-tenue); font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.mazo { position: relative; }
+.mazo + .mazo { margin-top: .75rem; }
+.mazo-con-pila { padding-bottom: 26px; }
+.mazo-con-pila::before, .mazo-con-pila::after { content: ""; position: absolute; border-radius: 22px; }
+.mazo-con-pila::before { left: 13px; right: 13px; top: 16px; bottom: 10px; z-index: 1; background: #1F1F42; }
+.mazo-con-pila::after { left: 26px; right: 26px; top: 30px; bottom: 0; z-index: 0; background: #2A2A52; }
+.recibo-frente { display: block; position: relative; z-index: 2; overflow: hidden; min-height: 190px; padding: 16px 18px; border-radius: 22px; background: var(--naranja); color: var(--tinta); box-shadow: 0 18px 30px rgba(0, 0, 0, .45); text-decoration: none; }
+.recibo-frente::after { content: ""; position: absolute; right: -60px; bottom: -80px; width: 220px; height: 220px; border: 30px solid rgba(6, 5, 23, .07); border-radius: 50%; pointer-events: none; }
+.recibo-frente > span { position: relative; z-index: 1; }
+.recibo-marca { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin: 0; font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.recibo-marca .chip-estado { letter-spacing: 0; text-transform: none; }
+.recibo-periodo { display: block; margin: .75rem 0 0; font-family: var(--fuente-titulo); font-size: 2.1rem; font-weight: 700; letter-spacing: -.035em; line-height: 1; }
+.recibo-pie { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: 2.2rem; font-size: .82rem; font-weight: 600; }
+.recibo-pie .ir { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; white-space: nowrap; }
+.billetera-vacia { padding: 1.4rem 1rem; border: 1.5px dashed var(--borde); border-radius: 22px; color: var(--texto-tenue); text-align: center; }
+.pila { margin: 0; padding: 0; list-style: none; }
+.pila li + li { margin-top: -12px; }
+.recibo-tira { display: block; position: relative; padding: 15px 18px 26px; border: 1px solid rgba(255, 255, 255, .08); border-radius: 20px; background: #1A1A3A; color: var(--sobre-oscuro); box-shadow: 0 -10px 22px rgba(0, 0, 0, .55); text-decoration: none; }
+.pila li:last-child .recibo-tira { padding-bottom: 15px; }
+.tira-firmado_conforme { background: #1E3A2B; }
+.tira-firmado_disconforme { background: #4B221D; }
+.recibo-tira .fila { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.recibo-tira .p { font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
+.recibo-tira .meta { display: flex; justify-content: space-between; gap: .5rem; margin-top: .5rem; color: rgba(245, 245, 250, .78); font-size: .82rem; }
+.recibo-tira .ver { display: inline-flex; align-items: center; gap: 5px; color: var(--naranja); font-weight: 600; white-space: nowrap; }
+
+/* ---------- Recibo abierto ---------- */
+.volver { display: inline-flex; align-items: center; gap: 8px; margin-top: .25rem; font-size: .95rem; font-weight: 600; text-decoration: none; }
+.volver .boton-icono { width: 36px; height: 36px; }
+.recibo-abierto { margin-top: .75rem; border-radius: 24px; }
+.recibo-abierto .recibo-periodo { margin-top: .5rem; font-family: var(--fuente-titulo); font-size: 1.9rem; }
+.recibo-abierto .titular { margin-top: 11px; padding-top: 10px; border-top: 1.5px dashed rgba(6, 5, 23, .3); }
+.original-cabeza { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin: 1rem .25rem .5rem; }
+.original-cabeza span { color: var(--texto-tenue); font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.original-cabeza a { display: inline-flex; align-items: center; gap: 5px; color: var(--naranja); font-weight: 600; }
+.visor-ayuda { margin: .5rem .25rem 0; font-size: .85rem; }
+.firmado { margin-top: 1rem; }
+
+/* ---------- Firma ---------- */
+.firma { margin-top: 1rem; padding: 14px 16px 18px; border: 1px solid var(--borde); border-radius: 22px; background: var(--carbon-2); }
+.firma-tipo legend { font-size: .95rem; }
+.firma-clave { margin-top: .25rem; }
+.deslizador { margin-bottom: .25rem; }
+.deslizador-pista { position: relative; display: flex; align-items: center; justify-content: center; height: 62px; padding-left: 48px; border: 1.5px solid var(--borde); border-radius: 31px; background: var(--carbon); color: var(--texto); font-weight: 700; user-select: none; touch-action: pan-y; }
+.deslizador-chevrones { margin-left: 8px; color: var(--naranja); letter-spacing: -.15em; }
+.deslizador-perilla { position: absolute; left: 4px; top: 3px; width: 53px; height: 53px; min-height: 0; margin: 0; padding: 0; border: 0; border-radius: 50%; background: var(--naranja); color: var(--tinta); box-shadow: 0 4px 12px rgba(240, 138, 36, .25); cursor: grab; touch-action: none; transition: transform .25s ease-out; }
+.deslizador.arrastrando .deslizador-perilla { transition-duration: 0s; cursor: grabbing; }
+.deslizador.completo .deslizador-pista { border-color: var(--naranja); }
+.firma-alternativa { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem .75rem; margin-top: 12px; padding: 0 6px; }
+.firma-no-conforme { color: #FF8F84; font-size: .95rem; font-weight: 700; }
+.firma-nota { display: inline-flex; align-items: center; gap: 5px; color: var(--texto-tenue); font-size: .75rem; }
+.firma-ayuda { margin: .75rem .25rem 0; font-size: .85rem; }
+/* Firma v2 (2026-10-19, qa/2026-10-19-mockups-firma). Solo celular: apenas arranca el arrastre, firma.js le pone
+   firma-compacta a la sección y se ocultan las piezas marcadas con data-firma-ocultable («No estoy conforme», la nota de la
+   clave y el texto legal). Al soltar al final, el deslizador queda «listo» (tilde y «Listo, ahora tu clave»). El teclado no
+   pasa por acá: con Enter o Espacio queda como antes. */
+.deslizador-relleno { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 31px; background: rgba(240, 138, 36, .16); pointer-events: none; }
+.deslizador-perilla { z-index: 2; }
+.deslizador-texto, .deslizador-chevrones { position: relative; }
+.deslizador.arrastrando .deslizador-texto, .deslizador.arrastrando .deslizador-chevrones { opacity: .28; }
+.deslizador-listo { display: none; }
+.deslizador.listo .deslizador-ir { display: none; }
+.deslizador.listo .deslizador-listo { display: block; }
+.deslizador.listo .deslizador-relleno { width: 100%; background: rgba(240, 138, 36, .2); }
+.deslizador.listo .deslizador-pista { padding-left: 0; padding-right: 56px; color: var(--naranja); }
+.deslizador.listo .deslizador-chevrones { display: none; }
+.firma.firma-compacta { padding-bottom: 14px; }
+.firma-compacta [data-firma-ocultable] { display: none; }
+.firma-compacta .firma-clave label { margin-top: .9rem; }
+/* Ajuste 2026-10-19: «Cancelar» bajo «Firmar recibo», solo en el estado «listo» (firma.js). Mismo estilo que «No estoy
+   conforme», en el color del texto. */
+.firma-cancelar { display: block; margin: 12px auto 0; color: var(--texto-2); font-size: .95rem; font-weight: 700; }
+.firma-cancelar[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+    .deslizador-perilla { transition-duration: 0s; }
+}
+
+/* Firma v2: aviso «¡Perfecto!» al volver de firmar conforme (empleado/recibos/_aviso_firma, js/aviso-firma.js). Es un
+   <dialog open>: sin JS se ve igual (la sombra enorme hace de fondo oscurecido); con JS se reabre como modal. */
+.aviso-firma { position: fixed; inset: 0; z-index: 50; width: calc(100% - 40px); max-width: 350px; height: fit-content; max-height: calc(100% - 40px); overflow: auto; margin: auto; padding: 34px 22px 22px; border: 1px solid var(--linea-oscura); border-radius: 26px; background: var(--grafito); color: var(--sobre-oscuro); text-align: center; box-shadow: 0 0 0 100vmax rgba(8, 8, 7, .6), 0 30px 70px rgba(0, 0, 0, .6); }
+.aviso-firma::backdrop { background: transparent; }
+html:has(.aviso-firma[open]) { overflow: hidden; }
+.aviso-firma-cerrar-form { margin: 0; }
+.aviso-firma-cerrar { position: absolute; right: 12px; top: 12px; width: 38px; height: 38px; min-height: 0; margin: 0; padding: 0; border: 1px solid var(--linea-oscura); border-radius: 50%; background: var(--carbon-2); color: var(--sobre-oscuro); }
+.aviso-firma-tilde { display: flex; align-items: center; justify-content: center; width: 104px; height: 104px; margin: 0 auto; border-radius: 50%; background: rgba(47, 191, 113, .1); }
+.aviso-firma-tilde span { display: flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--ok); background: rgba(47, 191, 113, .18); color: var(--ok); }
+.aviso-firma h2 { margin: 18px 0 8px; font-family: var(--fuente-titulo); font-size: 1.9rem; letter-spacing: -.03em; }
+.aviso-firma h2:focus { outline: none; }
+.aviso-firma p { margin: 0 auto; max-width: 17em; color: #D7D7E4; font-size: 1rem; line-height: 1.45; }
+.aviso-firma-acciones { display: flex; flex-direction: column; gap: 10px; margin: 22px 0 0; }
+.aviso-firma-acciones .boton, .aviso-firma-acciones button { margin: 0; min-height: 52px; border-radius: 14px; font-size: 1.03rem; white-space: nowrap; }
+.aviso-firma-acciones .boton.secundario { border-color: var(--linea-oscura); background: var(--carbon-2); color: var(--sobre-oscuro); }
+.aviso-descargar-reloj { display: none; }
+.aviso-firma-acciones .preparando { cursor: progress; }
+.aviso-firma-acciones .preparando .aviso-descargar-bajar { display: none; }
+.aviso-firma-acciones .preparando .aviso-descargar-reloj { display: block; }
+.aviso-firma .aviso-firma-estado { margin-top: 12px; color: var(--pend); font-size: .9rem; }
+.aviso-firma-estado:empty { display: none; }
+
+/* =====================================================================================================================
+ * Versión de escritorio (2026-10-14, mockups qa/2026-10-14-mockups/F-Naranja-escritorio).
+ * Regla: es aditiva. Por debajo de 900px se ve la versión de celular aprobada tal cual (etiqueta version-celular-2026-10-14);
+ * entre 900 y 1023px, la misma columna centrada; desde 1024px, lo de este bloque. Las piezas que solo existen en
+ * escritorio llegan en el HTML y acá se ocultan para el celular.
+ * ===================================================================================================================== */
+.resumen-anio, .recibo-publicado, .ingreso-puntos, .ingreso-contador, .cabecera-quien, .cabecera-pastilla, .firma-encabezado, .recibo-datos { display: none; }
+.cabecera-seg, .cabecera-yo { display: contents; }
+
+@media (min-width: 1024px) {
+    /* ---------- Contenedor ancho para Mis recibos y el recibo abierto ---------- */
+    .contenido.contenido-escritorio { max-width: 90rem; padding: 30px 40px 1rem; }
+
+    /* ---------- Mis recibos: saludo y años en una fila, pendiente en 2 columnas + resumen, historial en grilla ---------- */
+    .contenido-billetera { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 30px; align-content: start; }
+    .contenido-billetera > * { grid-column: 1 / -1; }
+    .contenido-billetera > .saludo { grid-column: 1; }
+    .contenido-billetera > .anios { grid-column: 2; align-self: end; }
+    .saludo h1 { margin: 0; font-family: var(--fuente-titulo); font-size: 3rem; letter-spacing: -.035em; line-height: 1; }
+    .saludo .titular { margin-top: 12px; font-size: 1.03rem; }
+    .saludo-sub { margin-top: 6px; font-size: 1.03rem; }
+    .anios { flex-wrap: wrap; justify-content: flex-end; gap: 10px; margin: 0; padding: 0; overflow: visible; }
+    .chip-anio { padding: 10px 18px; font-size: 1rem; }
+    .chip-anio small { margin-left: 7px; font-size: .85rem; }
+    .seccion-titulo { margin: 30px 0 12px; font-size: .8rem; letter-spacing: .16em; }
+
+    .billetera { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: start; }
+    .billetera > .seccion-titulo { grid-column: 1 / -1; margin-bottom: -10px; }
+    .billetera > .mazo, .billetera > .billetera-vacia { grid-column: 1 / span 2; }
+    .mazo + .mazo { margin-top: 0; }
+    .mazo-con-pila { padding-bottom: 20px; }
+    .mazo-con-pila::before { left: 18px; right: 18px; top: 10px; bottom: 10px; border-radius: 26px; background: #1B1B3C; }
+    .mazo-con-pila::after { left: 36px; right: 36px; top: 20px; bottom: 0; border-radius: 26px; background: #26264A; }
+    .recibo-frente { display: flex; flex-direction: column; min-height: 216px; padding: 24px 30px; border-radius: 26px; box-shadow: 0 18px 34px rgba(0, 0, 0, .5); }
+    .recibo-frente::after { right: -40px; bottom: -150px; width: 340px; height: 340px; border-width: 46px; }
+    .recibo-frente .recibo-marca { font-size: .8rem; letter-spacing: .16em; }
+    .recibo-frente .recibo-periodo { margin-top: 14px; font-family: var(--fuente-titulo); font-size: 3.75rem; letter-spacing: -.04em; }
+    .recibo-frente .recibo-pie { margin-top: auto; padding-top: 1rem; font-size: 1rem; }
+    .recibo-pie .ir { gap: 9px; height: 50px; padding: 0 20px; border-radius: 14px; background: var(--tinta); color: var(--naranja); font-size: 1.06rem; }
+    .recibo-publicado { display: block; margin-top: 3px; color: var(--naranja-tinta); font-size: .85rem; font-weight: 500; }
+
+    .resumen-anio { display: flex; flex-direction: column; grid-column: 3; grid-row: 2; align-self: stretch; padding: 22px 24px; border: 1px solid var(--borde); border-radius: 22px; background: var(--carbon-2); }
+    .resumen-cabeza { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; margin: 0; }
+    .resumen-cabeza span { color: var(--texto-tenue); font-size: .8rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .resumen-cabeza b { font-family: var(--fuente-titulo); font-size: 1.5rem; letter-spacing: -.02em; }
+    .resumen-barra { display: block; width: 100%; height: 9px; margin-top: 14px; overflow: hidden; border-radius: 9px; background: rgba(255, 255, 255, .08); }
+    .resumen-barra .resumen-ok { fill: var(--ok); }
+    .resumen-barra .resumen-disc { fill: var(--disc); }
+    .resumen-barra .resumen-pend { fill: var(--pend); }
+    .resumen-lista { display: flex; flex-direction: column; gap: 9px; margin: 14px 0; padding: 0; list-style: none; }
+    .resumen-lista li { display: flex; align-items: center; gap: 10px; color: var(--texto-2); font-size: .94rem; }
+    .resumen-lista i { width: 10px; height: 10px; border-radius: 50%; }
+    .resumen-lista .resumen-ok i { background: var(--ok); }
+    .resumen-lista .resumen-disc i { background: var(--disc); }
+    .resumen-lista .resumen-pend i { background: var(--pend); }
+    .resumen-lista .mono { margin-left: auto; color: var(--texto); font-weight: 700; }
+    .resumen-ultimo { margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--borde); color: var(--texto-tenue); font-size: .85rem; }
+    .resumen-ultimo b { color: var(--texto); font-weight: 600; }
+    .resumen-ultimo .mono { color: var(--texto); font-weight: 700; }
+
+    .pila { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .pila li { display: flex; }
+    .pila li + li { margin-top: 0; }
+    .recibo-tira, .pila li:last-child .recibo-tira { display: flex; flex: 1; flex-direction: column; min-height: 128px; padding: 18px 22px; border: 1px solid rgba(123, 230, 168, .2); border-radius: 20px; box-shadow: none; }
+    .tira-firmado_disconforme { border-color: rgba(255, 167, 158, .25); }
+    .recibo-tira .p { font-family: var(--fuente-titulo); font-size: 1.56rem; }
+    .recibo-tira .meta { align-items: center; margin-top: auto; padding-top: 1rem; font-size: .94rem; }
+    .recibo-tira .meta .mono { color: var(--sobre-oscuro); font-weight: 700; }
+}
+
+/* ---------- Ingreso: botones que solo aparecen con JS en escritorio (llegan hidden; portal.js los muestra) ---------- */
+.ingreso-teclado-toggle { display: flex; align-items: center; justify-content: flex-start; gap: 11px; width: 100%; height: 50px; min-height: 0; margin: 20px 0 0; padding: 0 16px; border: 1.5px solid rgba(240, 138, 36, .45); border-radius: 14px; background: transparent; color: var(--texto); font-size: 1rem; font-weight: 600; }
+.ingreso-teclado-toggle small { margin-left: auto; color: var(--texto-tenue); font-size: .8rem; font-weight: 500; }
+.ingreso.teclado-abierto .ingreso-teclado-toggle { border-color: var(--texto); background: rgba(240, 138, 36, .12); }
+.boton-seguir { position: relative; display: flex; gap: 10px; width: 100%; height: 60px; margin-top: 14px; border-radius: 16px; font-size: 1.2rem; }
+.boton-seguir kbd { position: absolute; right: 16px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border: 1.5px solid rgba(6, 5, 23, .45); border-radius: 7px; font-family: var(--fuente-mono); font-size: .78rem; font-weight: 700; }
+.ingreso.teclado-abierto .boton-seguir { display: none; }
+
+@media (min-width: 1024px) {
+    /* ---------- Ingreso: pantalla partida (marca a la izquierda, tarjeta del formulario a la derecha) ---------- */
+    body:has(.contenido-ingreso) > .cabecera { justify-content: flex-start; gap: 18px; padding: 52px 80px 0; }
+    body:has(.contenido-ingreso) > .cabecera .marca img { height: 36px; }
+    body:has(.contenido-ingreso) > .cabecera .pastilla { padding: 6px 14px; font-size: .875rem; }
+    body:has(.contenido-ingreso) > .pie { padding: 0 80px 40px; font-size: .875rem; text-align: left; }
+    .contenido.contenido-ingreso { display: flex; flex-direction: column; justify-content: center; max-width: 90rem; padding: 2rem 88px 2rem 80px; }
+    .ingreso { display: grid; grid-template-columns: 1fr 540px; gap: 72px; align-items: center; width: 100%; }
+    .ingreso::before { left: 260px; right: auto; top: 50%; width: 500px; height: 500px; border-width: 86px; border-color: rgba(240, 138, 36, .055); transform: translateY(-50%); }
+    .ingreso h1 { margin: 0; font-family: var(--fuente-titulo); font-size: 3.9rem; letter-spacing: -.04em; line-height: 1.06; white-space: nowrap; }
+    .ingreso-ayuda { margin-top: 22px; font-family: var(--fuente-titulo); font-size: 1.5rem; }
+    .ingreso-puntos { display: flex; flex-direction: column; gap: 16px; margin: 46px 0 0; padding: 0; list-style: none; }
+    .ingreso-puntos li { display: flex; align-items: center; gap: 14px; color: var(--texto-tenue); font-size: 1.06rem; font-weight: 500; }
+    .ingreso-puntos b { color: var(--texto); font-weight: 600; }
+    .ingreso-punto-icono { display: flex; flex: none; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; background: rgba(240, 138, 36, .1); color: var(--texto); }
+    .ingreso-tarjeta { padding: 36px 38px 30px; border: 1.5px solid rgba(240, 138, 36, .22); border-radius: 30px; background: #0E0D2A; box-shadow: 0 30px 60px rgba(0, 0, 0, .45); }
+    .ingreso-pasos { gap: 10px; margin: 0; }
+    .ingreso-pasos li { padding: 11px 15px; border-radius: 14px; font-size: 1rem; line-height: 1.3; }
+    .ingreso-pasos b { font-size: .75rem; letter-spacing: .14em; }
+    .ingreso-etiqueta { margin-top: 28px; font-size: .8rem; letter-spacing: .18em; }
+    .ingreso-campo { position: relative; margin-top: 10px; }
+    .ingreso input.ingreso-cuil { height: 78px; padding: 0 92px 0 22px; border: 2px solid var(--texto); border-radius: 18px; background: rgba(240, 138, 36, .06); box-shadow: 0 0 0 5px rgba(240, 138, 36, .12); font-family: var(--fuente-mono); font-size: 2.1rem; letter-spacing: .04em; }
+    .ingreso input.ingreso-cuil:focus { box-shadow: 0 0 0 5px rgba(240, 138, 36, .22); }
+    .ingreso input.ingreso-cuil:focus-visible { outline: 2px solid var(--texto); outline-offset: 6px; }
+    .ingreso-contador { display: block; position: absolute; right: 22px; top: 50%; color: var(--texto-tenue); font-size: .875rem; font-weight: 700; transform: translateY(-50%); }
+    .ingreso-contador[hidden] { display: none; }
+    .ingreso-ranuras { gap: 6px; margin-top: 12px; }
+    .ingreso-ranuras i { flex: 1; width: auto; opacity: .22; }
+    .ingreso-ranuras i.corte { margin-right: 10px; }
+    .ingreso-pista { margin-top: 10px; font-size: .94rem; }
+    .teclado { gap: 8px; margin-top: 10px; padding: 12px; border: 1.5px solid rgba(240, 138, 36, .2); border-radius: 20px; background: rgba(240, 138, 36, .04); }
+    .teclado .tecla { height: 52px; border-radius: 14px; background: rgba(240, 138, 36, .1); font-family: var(--fuente-titulo); font-size: 1.56rem; }
+    .teclado .tecla:hover { background: rgba(240, 138, 36, .2); }
+    .teclado .tecla-borrar { background: transparent; border-color: rgba(240, 138, 36, .32); }
+    .teclado .tecla-seguir { background: var(--acento); font-size: .78rem; }
+    .ingreso-paso[data-paso="2"] input[type=password] { height: 60px; border-radius: 16px; font-size: 1.15rem; }
+    .ingreso-paso[data-paso="2"] .boton-bloque { height: 60px; border-radius: 16px; font-size: 1.2rem; }
+    .ingreso-enlaces { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(240, 138, 36, .16); font-size: 1rem; }
+    .ingreso-enlaces a { text-underline-offset: 4px; }
+    .ingreso-seguro { font-size: .875rem; }
+}
+
+@media (min-width: 1024px) {
+    /* ---------- Cabecera del empleado como la de RRHH: marca, navegación en texto, nombre y legajo, Salir ---------- */
+    .cabecera-empleado { flex-wrap: nowrap; justify-content: flex-start; gap: 24px; min-height: 64px; padding: 0 40px; border-bottom: 1px solid var(--borde); background: var(--carbon-2); }
+    .cabecera-empleado .marca { font-size: 1.25rem; }
+    .cabecera-pastilla { display: inline-block; margin-left: -12px; color: var(--naranja); font-size: .75rem; }
+    .cabecera-empleado .herramientas { flex: 1; gap: 12px; }
+    .cabecera-seg { display: flex; gap: 2px; margin-right: auto; padding: 4px; border-radius: 12px; background: var(--grafito); }
+    .cabecera-seg .boton-icono { width: auto; height: auto; gap: 8px; padding: 8px 15px; border: 0; border-radius: 9px; background: transparent; color: #D7D7E4; font-size: .94rem; font-weight: 600; text-decoration: none; }
+    .cabecera-seg .boton-icono:hover { color: var(--sobre-oscuro); }
+    .cabecera-seg .boton-icono[aria-current="page"] { background: var(--naranja); color: var(--tinta); }
+    .cabecera-empleado .cabecera-texto { position: static; width: auto; height: auto; margin: 0; overflow: visible; clip: auto; white-space: nowrap; }
+    .cabecera-yo { display: flex; order: 1; align-items: center; gap: 11px; }
+    .cabecera-quien { display: flex; flex-direction: column; line-height: 1.2; }
+    .cabecera-quien b { font-size: .9rem; font-weight: 600; }
+    .cabecera-quien small { color: var(--texto-tenue); font-size: .78rem; }
+    .cabecera-salir-form { order: 2; margin-left: 6px; }
+    .cabecera-empleado .cabecera-salir { width: auto; height: 38px; gap: 7px; padding: 0 13px; border: 1.5px solid var(--borde); border-radius: 10px; background: transparent; font-size: .94rem; font-weight: 600; }
+    .cabecera-empleado .cabecera-salir:hover { border-color: var(--naranja); }
+}
+
+@media (min-width: 1024px) {
+    /* ---------- Recibo abierto: PDF grande a la izquierda, panel fijo a la derecha (sin reordenar el HTML) ---------- */
+    .contenido-recibo { padding-top: 16px; }
+    .contenido-recibo .volver { gap: 11px; margin: 0 0 16px; font-size: 1rem; }
+    .contenido-recibo .volver .boton-icono { width: 38px; height: 38px; }
+    .recibo-disposicion {
+        display: grid; grid-template-columns: minmax(0, 1fr) 452px;
+        grid-template-areas: "visor tarjeta" "visor acciones" "visor firma" "visor datos" "visor ." "ayuda .";
+        grid-template-rows: auto auto auto auto 1fr auto; gap: 14px 28px; align-items: start;
+    }
+    .recibo-disposicion > .recibo-abierto { grid-area: tarjeta; margin: 0; padding: 22px 26px 20px; }
+    .recibo-disposicion > .recibo-abierto .recibo-marca { font-size: .78rem; letter-spacing: .16em; }
+    .recibo-disposicion > .recibo-abierto .recibo-periodo { margin-top: 12px; font-family: var(--fuente-titulo); font-size: 2.75rem; letter-spacing: -.04em; }
+    .recibo-disposicion > .recibo-abierto .titular { margin-top: 16px; padding-top: 13px; font-size: .94rem; line-height: 1.55; }
+    .recibo-disposicion > .original-cabeza { grid-area: acciones; margin: 0; }
+    .recibo-disposicion > .original-cabeza > span { display: none; }
+    .recibo-disposicion > .original-cabeza a { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 50px; border: 1.5px solid var(--naranja); border-radius: 14px; font-size: 1.03rem; font-weight: 700; text-decoration: none; }
+    .recibo-disposicion > .original-cabeza a:hover { background: rgba(240, 138, 36, .1); }
+    .recibo-disposicion > .visor { grid-area: visor; height: calc(100vh - 194px); min-height: 560px; border-radius: 20px; background: #2E2E5A; }
+    .recibo-disposicion > .visor-ayuda { grid-area: ayuda; margin: 0 .25rem; }
+    .recibo-disposicion > .firma, .recibo-disposicion > .firmado { grid-area: firma; margin: 0; }
+    .recibo-disposicion > .firma { padding: 20px 22px; }
+    .firma-encabezado { display: block; margin: 0 0 14px; color: var(--texto-tenue); font-size: .8rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .firma-alternativa { margin-top: 14px; padding: 0; }
+    .firma-no-conforme { font-size: 1rem; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+    .firma-nota { font-size: .84rem; }
+    .firma-ayuda { margin: 14px 0 0; color: var(--texto-2); font-size: .875rem; line-height: 1.5; }
+    /* Ajuste 2026-10-14: en escritorio no hay gesto; casilla «Leí el recibo y estoy conforme» + clave + «Firmar conforme». */
+    .firma-conforme { margin: 0 0 16px; padding: 13px 14px; border: 1.5px solid var(--borde); border-radius: 14px; color: var(--texto); font-size: 1rem; font-weight: 600; cursor: pointer; }
+    .firma-conforme:has(input:checked) { border-color: var(--naranja); }
+    .firma-conforme input { width: 1.25rem; height: 1.25rem; margin-top: .1rem; }
+    .firma-conforme + .firma-clave button[type="submit"] { min-height: 52px; font-size: 1.03rem; }
+    .recibo-disposicion > .recibo-datos { display: flex; flex-direction: column; gap: 7px; grid-area: datos; margin: 0; padding: 12px 18px; border: 1px solid var(--borde); border-radius: 18px; }
+    .recibo-datos div { display: flex; align-items: center; gap: 10px; }
+    .recibo-datos dt { display: inline-flex; align-items: center; gap: 10px; color: var(--texto-tenue); font-size: .875rem; }
+    .recibo-datos dd { margin: 0 0 0 auto; color: var(--texto); font-size: .84rem; font-weight: 700; }
+}
+
+@media (min-width: 1024px) {
+    /* Firma v2: el aviso «¡Perfecto!» en la PC, con los dos botones uno al lado del otro. 520px para que «Preparando tu
+       recibo…» entre en una línea. */
+    .aviso-firma { max-width: 520px; padding: 40px 34px 30px; }
+    .aviso-firma h2 { font-family: var(--fuente-titulo); font-size: 2.2rem; }
+    .aviso-firma-acciones { flex-direction: row; }
+    .aviso-firma-acciones > * { flex: 1 1 0; }
+}

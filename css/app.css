@@ -1,0 +1,246 @@
+/*
+ * Portal de recibos · Conectica IT — Opción F «Billetera y tablero» con la marca de Conectica IT (acento naranja, Barlow).
+ * Tokens, temas, base y componentes compartidos. Las pantallas propias van aparte: css/empleado.css (unidad 02) y
+ * css/rrhh.css (unidad 03). Contrato de nombres: docs/superpowers/plans/2026-10-14-rediseno-f-00-indice.md.
+ * Nada en línea: la CSP es style-src 'self'. Sin animaciones (la única del portal es la de la firma, en empleado.css).
+ */
+
+/* ---------- Fuentes autoalojadas (SIL OFL: ver public/fonts/OFL-*.txt) ---------- */
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/barlow-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/barlow-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/barlow-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/barlow-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/barlow-condensed-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/barlow-condensed-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Space Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/space-mono-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Space Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/space-mono-latin-700-normal.woff2') format('woff2'); }
+
+/* ---------- Tokens ---------- */
+:root {
+    --carbon: #060517; --carbon-2: #0E0D2A; --grafito: #1A1A3A; --linea-oscura: #2E2E5A;
+    --naranja: #F08A24; --naranja-oscura: #D33504; --naranja-tinta: #3D1400; --naranja-tenue: #C9875A;
+    --degrade: linear-gradient(90deg, #D33504, #F09922);
+    --hueso: #F4F4F8; --hueso-2: #E8E8F0; --linea: #D2D2DE;
+    --tinta: #0B0A24; --tinta-2: #3E3E5C; --tenue-claro: #62627E;
+    --sobre-oscuro: #F5F5FA; --tenue-oscuro: #8B8B9A;
+    --ok: #2FBF71; --ok-osc: #17703F; --ok-suave: #DCF4E5;
+    --pend: #FFB224; --pend-osc: #7A4E00; --pend-suave: #FFEFC7;
+    --disc: #FF5C4D; --disc-osc: #B42A1C; --disc-suave: #FFE0DB;
+    --sa: #A18BFF; --sa-osc: #4B33C4; --sa-suave: #ECE7FF;
+    --dev: #4CC3FF; --dev-osc: #0A6390; --dev-suave: #DBF2FF;
+
+    --fuente: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --fuente-titulo: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --fuente-mono: 'Space Mono', ui-monospace, 'Cascadia Mono', monospace;
+    --radio: 12px; --radio-grande: 22px;
+
+    /* Semánticos: tema claro (RRHH) por defecto. */
+    --fondo: var(--hueso); --superficie: #fff; --superficie-2: var(--hueso-2);
+    --texto: var(--tinta); --texto-2: var(--tinta-2); --texto-tenue: var(--tenue-claro); --borde: var(--linea);
+    --acento: var(--naranja); --sobre-acento: var(--tinta); --foco: var(--tinta);
+}
+.tema-claro { color-scheme: light; }
+.tema-oscuro {
+    color-scheme: dark;
+    --fondo: var(--carbon); --superficie: var(--grafito); --superficie-2: var(--carbon-2);
+    --texto: var(--sobre-oscuro); --texto-2: #D7D7E4; --texto-tenue: var(--tenue-oscuro); --borde: var(--linea-oscura);
+    --foco: var(--naranja);
+}
+/* Ingreso invertido: fondo carbón y letras naranja; los bloques activos son naranja con letra negra. */
+.tema-ingreso {
+    color-scheme: dark;
+    --fondo: var(--carbon); --superficie: rgba(240, 138, 36, .08); --superficie-2: var(--carbon-2);
+    --texto: var(--naranja); --texto-2: var(--naranja); --texto-tenue: var(--naranja-tenue); --borde: rgba(240, 138, 36, .25);
+    --acento: var(--naranja); --sobre-acento: var(--carbon); --foco: var(--sobre-oscuro);
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; font-family: var(--fuente); font-size: 1rem; line-height: 1.5; color: var(--texto); background: var(--fondo); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { margin: 0 0 .6rem; font-family: var(--fuente-titulo); font-weight: 700; line-height: 1.1; letter-spacing: -.03em; }
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.5rem; letter-spacing: -.02em; }
+h3 { font-size: 1.25rem; letter-spacing: -.01em; }
+p { margin: 0 0 .75rem; }
+ul, ol { margin: 0 0 .75rem; padding-left: 1.2rem; }
+a { color: inherit; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+code { font-family: var(--fuente-mono); font-size: .9em; overflow-wrap: anywhere; }
+img, svg, iframe { max-width: 100%; }
+:focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.saltar { position: absolute; left: .75rem; top: -3rem; z-index: 10; padding: .5rem .9rem; border-radius: var(--radio); background: var(--acento); color: var(--sobre-acento); font-weight: 700; text-decoration: none; }
+.saltar:focus { top: .75rem; }
+.mono { font-family: var(--fuente-mono); }
+.num { font-variant-numeric: tabular-nums; }
+.suave { color: var(--texto-tenue); }
+.en-linea { display: inline; }
+.icono { display: inline-block; flex: none; vertical-align: -.15em; }
+
+/* ---------- Cabeceras ---------- */
+.cabecera { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1rem; padding: .9rem 1.25rem; }
+.marca { display: inline-flex; align-items: center; gap: .6rem; font-size: 1.2rem; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
+.marca img { display: block; width: auto; height: 26px; }
+.marca-texto { font-family: var(--fuente-titulo); font-weight: 700; letter-spacing: .01em; }
+/* El logo es blanco: sobre fondo claro va en una pastilla --carbon. */
+.tema-claro .cabecera:not(.cabecera-rrhh) .marca { padding: .5rem .85rem; border-radius: 10px; background: var(--carbon); }
+.marca-texto em { font-style: normal; font-weight: 500; color: var(--acento); }
+.tema-ingreso .marca-texto em { color: inherit; }
+.pastilla { padding: 4px 11px; border: 1.5px solid currentColor; border-radius: 99px; font-size: .78rem; font-weight: 600; white-space: nowrap; }
+.herramientas { display: flex; align-items: center; gap: .5rem; }
+.herramientas .avatar { width: 38px; height: 38px; }
+.cabecera-empleado { padding: .75rem 1.25rem .35rem; }
+.cabecera-empleado .marca { font-size: 1.1rem; }
+.cabecera-rrhh { justify-content: flex-start; gap: .75rem 1.5rem; padding: .7rem 1.75rem; background: var(--degrade) bottom / 100% 3px no-repeat, var(--carbon); color: var(--sobre-oscuro); }
+.cabecera-rrhh .marca { font-size: 1.15rem; }
+.cabecera-rrhh .marca-texto em { color: var(--naranja); }
+.cabecera-rrhh :focus-visible { outline-color: var(--naranja); }
+.rrhh-tag { padding: 3px 7px; border-radius: 6px; background: var(--naranja); color: var(--tinta); font-family: var(--fuente-titulo); font-size: .78rem; font-weight: 700; letter-spacing: .14em; }
+.segmentos { display: flex; flex-wrap: wrap; gap: 2px; padding: 4px; border-radius: 12px; background: var(--grafito); }
+.segmentos a { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 9px; color: #D7D7E4; font-size: .875rem; font-weight: 600; text-decoration: none; }
+.segmentos a:hover { color: var(--sobre-oscuro); }
+.segmentos a[aria-current="page"] { background: var(--naranja); color: var(--tinta); }
+.insignia { padding: 1px 7px; border-radius: 99px; background: var(--sa); color: var(--tinta); font-size: .7rem; font-weight: 700; }
+.cabecera-espacio { flex: 1; }
+.buscador { display: flex; align-items: center; gap: 8px; width: min(300px, 100%); height: 38px; padding: 0 12px; border: 1px solid var(--linea-oscura); border-radius: 10px; background: var(--grafito); color: var(--tenue-oscuro); }
+.buscador:focus-within { border-color: var(--naranja); }
+.buscador input[type=search] { padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--sobre-oscuro); font-size: .85rem; }
+.buscador input[type=search]:focus { box-shadow: none; }
+.buscador input::placeholder { color: var(--tenue-oscuro); }
+.cabecera-subir a { display: inline-flex; align-items: center; height: 38px; padding: 0 14px; border-radius: 10px; background: var(--naranja); color: var(--tinta); font-size: .875rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.yo { display: inline-flex; align-items: center; gap: 8px; color: #D7D7E4; font-size: .82rem; }
+
+/* ---------- Página ---------- */
+.contenido { flex: 1; width: 100%; max-width: 32rem; margin: 0 auto; padding: .5rem 1.25rem 2rem; }
+.contenido-ancho { max-width: 96rem; padding: 1.25rem 1.75rem 2rem; }
+.pie { padding: 1.5rem 1rem; text-align: center; color: var(--texto-tenue); font-size: .8rem; }
+.pie b { color: var(--texto); font-weight: 600; }
+
+/* ---------- Tarjeta ---------- */
+.tarjeta { position: relative; margin-bottom: 1rem; padding: 1.1rem 1.2rem; background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio-grande); }
+.tarjeta > :last-child { margin-bottom: 0; }
+.tarjeta-titulo { margin-bottom: .6rem; color: var(--texto-tenue); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; }
+.tarjeta-acento { overflow: hidden; background: var(--naranja); color: var(--tinta); border-color: var(--naranja); --texto: var(--tinta); --texto-tenue: var(--naranja-tinta); --foco: var(--tinta); }
+.tarjeta-acento::after { content: ""; position: absolute; right: -60px; top: -80px; width: 210px; height: 210px; border-radius: 50%; border: 30px solid rgba(6, 5, 23, .07); pointer-events: none; }
+.tarjeta-acento > * { position: relative; z-index: 1; }
+.tarjeta-oscura { background: var(--carbon); color: var(--sobre-oscuro); border-color: var(--carbon); }
+
+/* ---------- Avisos ---------- */
+.aviso { margin: 0 0 1rem; padding: .75rem 1rem; border-radius: var(--radio); font-weight: 500; }
+.aviso.ok { background: var(--ok-suave); color: var(--ok-osc); }
+.aviso.error { background: var(--disc-suave); color: var(--disc-osc); }
+.aviso.advertencia { background: var(--pend-suave); color: var(--pend-osc); }
+.aviso ul { margin: 0; padding-left: 1.2rem; }
+.aviso p:last-child { margin-bottom: 0; }
+
+/* ---------- Formularios ---------- */
+label { display: block; margin: .85rem 0 .3rem; font-size: .9rem; font-weight: 600; }
+input[type=text], input[type=email], input[type=password], input[type=number], input[type=search], input[type=file], select, textarea {
+    width: 100%; padding: .7rem .8rem; font: inherit; font-size: 1rem; color: var(--texto); background: var(--superficie); border: 1.5px solid var(--borde); border-radius: var(--radio);
+}
+input:focus, select:focus, textarea:focus { border-color: var(--acento); outline: none; box-shadow: 0 0 0 3px rgba(240, 138, 36, .4); }
+textarea { resize: vertical; }
+fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+legend { margin-bottom: .3rem; padding: 0; font-weight: 700; }
+.casilla { display: flex; align-items: flex-start; gap: .6rem; margin: .6rem 0; font-weight: 500; }
+.casilla input { flex: none; width: 1.15rem; height: 1.15rem; margin: .2rem 0 0; accent-color: var(--naranja); }
+
+/* ---------- Botones ---------- */
+button, .boton { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; min-height: 44px; margin-top: 1rem; padding: .65rem 1.1rem; font: inherit; font-size: .95rem; font-weight: 700; line-height: 1.2; border: 1.5px solid transparent; border-radius: var(--radio); background: var(--acento); color: var(--sobre-acento); text-decoration: none; cursor: pointer; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+.boton.secundario, button.secundario { background: transparent; color: var(--texto); border-color: currentColor; }
+.boton.oscuro, button.oscuro { background: var(--tinta); color: var(--naranja); }
+.boton-bloque { display: flex; width: 100%; }
+.boton-link { display: inline; min-height: 0; margin: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-weight: 600; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; cursor: pointer; }
+.boton-icono { display: inline-flex; align-items: center; justify-content: center; gap: 0; width: 38px; height: 38px; min-height: 0; margin: 0; padding: 0; border: 1px solid var(--borde); border-radius: 50%; background: var(--superficie); color: var(--texto); }
+
+/* ---------- Chip de estado del recibo (<x-estado>) ---------- */
+.chip-estado { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1px solid transparent; border-radius: 99px; font-size: .75rem; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.chip-estado i { display: block; flex: none; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.es-pendiente_firma { background: var(--pend-suave); color: var(--pend-osc); }
+.es-pendiente_firma i { background: var(--pend); }
+.es-firmado_conforme { background: var(--ok-suave); color: var(--ok-osc); }
+.es-firmado_conforme i { background: var(--ok); }
+.es-firmado_disconforme { background: var(--disc-suave); color: var(--disc-osc); }
+.es-firmado_disconforme i { background: var(--disc); }
+.es-sin_asignar { background: var(--sa-suave); color: var(--sa-osc); }
+.es-sin_asignar i { background: var(--sa); }
+.es-devuelto { background: var(--dev-suave); color: var(--dev-osc); }
+.es-devuelto i { background: var(--dev); }
+.tema-oscuro .es-pendiente_firma { background: rgba(255, 178, 36, .16); color: #FFD27A; border-color: rgba(255, 210, 122, .35); }
+.tema-oscuro .es-firmado_conforme { background: rgba(47, 191, 113, .18); color: #7BE6A8; border-color: rgba(123, 230, 168, .35); }
+.tema-oscuro .es-firmado_disconforme { background: rgba(255, 92, 77, .2); color: #FFA79E; border-color: rgba(255, 167, 158, .4); }
+.tema-oscuro .es-sin_asignar { background: rgba(161, 139, 255, .18); color: #CDBFFF; border-color: rgba(205, 191, 255, .35); }
+.tema-oscuro .es-devuelto { background: rgba(76, 195, 255, .16); color: #9BDDFF; border-color: rgba(155, 221, 255, .35); }
+.chip-estado.sobre-acento { background: var(--tinta); border-color: var(--tinta); }
+.sobre-acento.es-pendiente_firma { color: var(--pend); }
+.sobre-acento.es-firmado_conforme { color: #7BE6A8; }
+.sobre-acento.es-firmado_disconforme { color: #FFA79E; }
+.sobre-acento.es-sin_asignar { color: #CDBFFF; }
+.sobre-acento.es-devuelto { color: #9BDDFF; }
+/* Legado: vistas que todavía usan <span class="estado {estado}">. */
+.estado { display: inline-block; padding: 2px 9px; border-radius: 99px; background: var(--hueso-2); color: var(--tinta); font-size: .8rem; font-weight: 700; white-space: nowrap; }
+.estado.pendiente_firma { background: var(--pend-suave); color: var(--pend-osc); }
+.estado.firmado_conforme { background: var(--ok-suave); color: var(--ok-osc); }
+.estado.firmado_disconforme { background: var(--disc-suave); color: var(--disc-osc); }
+.estado.sin_asignar { background: var(--sa-suave); color: var(--sa-osc); }
+
+/* ---------- Etiquetas chicas ---------- */
+.etiqueta { display: inline-flex; align-items: center; gap: 5px; padding: 3px 7px; border-radius: 7px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+.etq-ok { background: var(--ok-suave); color: var(--ok-osc); }
+.etq-pend { background: var(--pend-suave); color: var(--pend-osc); }
+.etq-disc { background: var(--disc-suave); color: var(--disc-osc); }
+.etq-sa { background: var(--sa-suave); color: var(--sa-osc); }
+.etq-dev { background: var(--dev-suave); color: var(--dev-osc); }
+.etq-gris { background: #E4E4EE; color: #3E3E5C; }
+
+/* ---------- Avatar de iniciales (<x-avatar>) ---------- */
+.avatar { display: inline-flex; flex: none; align-items: center; justify-content: center; border-radius: 50%; color: var(--tinta); font-weight: 700; line-height: 1; }
+.avatar-chico { width: 34px; height: 34px; font-size: .78rem; }
+.avatar-mediano { width: 42px; height: 42px; font-size: .9rem; }
+.avatar-grande { width: 52px; height: 52px; font-size: 1.1rem; }
+.av-0 { background: #F08A24; }
+.av-1 { background: #FFB224; }
+.av-2 { background: #A18BFF; }
+.av-3 { background: #4CC3FF; }
+.av-4 { background: #FF8A7A; }
+.av-5 { background: #7EE0A8; }
+.av-6 { background: #F5D0FE; }
+.av-7 { background: #FDE68A; }
+.av-acento { background: var(--naranja); }
+.av-claro { background: var(--sobre-oscuro); }
+
+/* ---------- Línea de titular (<x-titular>) ---------- */
+.titular { margin: 0; font-size: .85rem; line-height: 1.45; }
+.titular b { font-weight: 700; }
+.titular .mono { font-size: .8rem; font-weight: 700; }
+
+/* ---------- Tablas, visor, paginación (legado, mismos nombres) ---------- */
+.tabla { overflow-x: auto; margin-bottom: 1rem; background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .6rem .75rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--borde); font-size: .9rem; }
+th { color: var(--texto-tenue); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+tbody tr:last-child td { border-bottom: 0; }
+.visor { display: block; width: 100%; height: 70vh; border: 1px solid var(--borde); border-radius: var(--radio); background: #fff; }
+.destacado { display: inline-block; max-width: 100%; padding: .5rem 1rem; font-family: var(--fuente-mono); font-size: 1.3rem; letter-spacing: .08em; overflow-wrap: anywhere; background: var(--pend-suave); color: var(--tinta); border: 2px dashed var(--naranja-oscura); border-radius: var(--radio); }
+.paginacion { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem 1rem; margin: 1rem 0; }
+.paginacion a, .paginacion-apagado { padding: .4rem .85rem; border: 1.5px solid var(--borde); border-radius: 9px; background: var(--superficie); font-weight: 600; text-decoration: none; }
+.paginacion-apagado { color: var(--texto-tenue); opacity: .6; }
+.paginacion-pagina { color: var(--texto-tenue); font-size: .9rem; }
+/* Observación de la firma en disconformidad: alto fijo de unas 4 líneas, crece solo hacia abajo y con tope. */
+.observacion-firma textarea { display: block; min-height: 6.5rem; max-height: 14rem; resize: vertical; line-height: 1.4; }
+
+/* ---------- Pantallas chicas y movimiento reducido ---------- */
+@media (max-width: 760px) {
+    .cabecera-rrhh { padding: .7rem 1rem; }
+    .buscador { order: 5; width: 100%; }
+    .contenido-ancho { padding: 1rem; }
+}
+@media (max-width: 480px) {
+    h1 { font-size: 1.9rem; }
+    .destacado { padding: .4rem .6rem; font-size: 1.05rem; letter-spacing: .03em; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: .01ms !important; animation: none !important; }
+}

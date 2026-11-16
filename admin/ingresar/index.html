@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head><meta name="robots" content="noindex"><script src="/conectica-recibos-demo/demo.js"></script><link rel="stylesheet" href="/conectica-recibos-demo/demo.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Panel · Conectica IT</title>
+    <link rel="preload" href="/conectica-recibos-demo/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/conectica-recibos-demo/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="/conectica-recibos-demo/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/conectica-recibos-demo/css/app.css">
+        <link rel="stylesheet" href="/conectica-recibos-demo/css/rrhh.css">
+    <script src="/conectica-recibos-demo/js/portal.js" defer></script>
+</head>
+<body class="tema-claro">
+    <a class="saltar" href="#contenido">Ir al contenido</a>
+                <header class="cabecera cabecera-rrhh">
+        <span class="marca"><span class="sr-only">Recibos · Conectica IT</span><img src="/conectica-recibos-demo/img/conectica-blanco.png" alt="" width="107" height="26"><span class="rrhh-tag" aria-hidden="true">RRHH</span></span>
+            </header>
+        <main id="contenido" class="contenido contenido-ancho">
+                            <div class="acceso">
+        <section class="tarjeta">
+        <h1>Panel de Recursos Humanos</h1>
+            <form method="POST" action="/conectica-recibos-demo/admin/ingresar/">
+                <input type="hidden" name="_token" value="demo" autocomplete="off">                <label for="email">Mail</label>
+                <input id="email" name="email" type="email" autocomplete="username" value="" required>
+                <label for="password">Clave</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+                <button type="submit" class="boton-bloque">Continuar</button>
+            </form>
+</section>
+    </div>
+    </main>
+    <footer class="pie">Servicio provisto por <b>Conéctica IT</b></footer>
+    <div class="demo-banda" role="note">Demostración con datos inventados · Empleado: CUIL 20-12345678-6, clave 1234 · RRHH: rrhh@conectica-it.com, clave 1234 · Los cambios no se guardan</div></body>
+</html>

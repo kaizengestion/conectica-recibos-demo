@@ -1,0 +1,2 @@
+/* Solo se carga sin JavaScript (<noscript> en empleado/recibos/_firma): la observación se ve siempre, como antes. */
+.observacion-firma[hidden] { display: block !important; }

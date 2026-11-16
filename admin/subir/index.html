@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head><meta name="robots" content="noindex"><script src="/conectica-recibos-demo/demo.js"></script><link rel="stylesheet" href="/conectica-recibos-demo/demo.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Subir PDF · Conectica IT</title>
+    <link rel="preload" href="/conectica-recibos-demo/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/conectica-recibos-demo/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="/conectica-recibos-demo/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/conectica-recibos-demo/css/app.css">
+        <link rel="stylesheet" href="/conectica-recibos-demo/css/rrhh.css">
+    <script src="/conectica-recibos-demo/js/portal.js" defer></script>
+</head>
+<body class="tema-claro">
+    <a class="saltar" href="#contenido">Ir al contenido</a>
+                <header class="cabecera cabecera-rrhh">
+        <span class="marca"><span class="sr-only">Recibos · Conectica IT</span><img src="/conectica-recibos-demo/img/conectica-blanco.png" alt="" width="107" height="26"><span class="rrhh-tag" aria-hidden="true">RRHH</span></span>
+                                <nav class="segmentos" aria-label="Panel">
+                
+                                                            <a href="/conectica-recibos-demo/admin/">Tablero</a>
+                                                                                <a href="/conectica-recibos-demo/admin/empleados/">Empleados</a>
+                                                                                <a href="/conectica-recibos-demo/admin/sin-asignar/">Sin asignar</a>
+                                                                                <a href="/conectica-recibos-demo/admin/historial/">Historial</a>
+                                                                                <a href="/conectica-recibos-demo/admin/auditoria/">Auditoría</a>
+                                                </nav>
+            <span class="cabecera-espacio"></span>
+            <form class="buscador" method="GET" action="/conectica-recibos-demo/admin/empleados/" role="search">
+                <svg class="icono" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+                <label class="sr-only" for="buscar-empleado">Buscar empleado, CUIL o legajo</label>
+                <input id="buscar-empleado" name="q" type="search" placeholder="Buscar empleado, CUIL o legajo">
+            </form>
+            
+                            <span class="cabecera-subir"><a href="/conectica-recibos-demo/admin/subir/">Subir PDF</a></span>
+                        <span class="yo">
+                <span class="avatar avatar-chico av-claro" aria-hidden="true">RP</span>
+                <form method="POST" action="/conectica-recibos-demo/__no/admin/salir" class="en-linea">
+                    <input type="hidden" name="_token" value="demo" autocomplete="off">                    <button type="submit" class="boton-link">Salir</button>
+                </form>
+            </span>
+            </header>
+        <main id="contenido" class="contenido contenido-ancho">
+                            <div class="tarjeta">
+        <h1>Subir recibos a mano</h1>
+        <p class="suave">Lo normal es dejar los PDF en la carpeta <code>recibos\entrada</code> del servidor: el portal los toma solo cada pocos minutos. Usá esta página si esa carpeta no está disponible.</p>
+        <form method="POST" action="/conectica-recibos-demo/admin/subir/" enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="demo" autocomplete="off">            <label for="archivos">PDF (hasta 20, de 10 MB cada uno)</label>
+            <input id="archivos" name="archivos[]" type="file" accept="application/pdf" multiple required
+                   data-max-archivos="20" aria-describedby="aviso-archivos">
+            <p id="aviso-archivos" class="aviso error" role="alert" hidden></p>
+            <button type="submit">Subir</button>
+        </form>
+    </div>
+    <script src="/conectica-recibos-demo/js/subir.js" defer></script>
+
+        </main>
+    <footer class="pie">Servicio provisto por <b>Conéctica IT</b></footer>
+    <div class="demo-banda" role="note">Demostración con datos inventados · Empleado: CUIL 20-12345678-6, clave 1234 · RRHH: rrhh@conectica-it.com, clave 1234 · Los cambios no se guardan</div></body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head><meta name="robots" content="noindex"><script src="/conectica-recibos-demo/demo.js"></script><link rel="stylesheet" href="/conectica-recibos-demo/demo.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clave · Conectica IT</title>
+    <link rel="preload" href="/conectica-recibos-demo/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/conectica-recibos-demo/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="/conectica-recibos-demo/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/conectica-recibos-demo/css/app.css">
+        <link rel="stylesheet" href="/conectica-recibos-demo/css/empleado.css">
+    <script src="/conectica-recibos-demo/js/portal.js" defer></script>
+</head>
+<body class="tema-oscuro">
+    <a class="saltar" href="#contenido">Ir al contenido</a>
+                <header class="cabecera cabecera-empleado">
+        <span class="marca"><span class="sr-only">Recibos · Conectica IT</span><img src="/conectica-recibos-demo/img/conectica-blanco.png" alt="" width="107" height="26"></span>
+        <span class="pastilla cabecera-pastilla" aria-hidden="true">Recibos de sueldo</span>
+        <nav class="herramientas" aria-label="Tu cuenta">
+            <span class="cabecera-seg">
+                                    <a class="boton-icono" href="/conectica-recibos-demo/b/inicio/" title="Mis recibos"><svg class="icono" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>
+<span class="sr-only cabecera-texto">Mis recibos</span></a>
+                                                    <a class="boton-icono" href="/conectica-recibos-demo/b/clave/" title="Cambiar clave" aria-current="page"><svg class="icono" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/></svg>
+<span class="sr-only cabecera-texto">Cambiar clave</span></a>
+                            </span>
+            <form method="POST" action="/conectica-recibos-demo/__no/salir" class="en-linea cabecera-salir-form">
+                <input type="hidden" name="_token" value="demo" autocomplete="off">                <button type="submit" class="boton-icono cabecera-salir" title="Salir"><svg class="icono" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 16l-4-4 4-4M6 12h10"/></svg>
+<span class="sr-only cabecera-texto">Salir</span></button>
+            </form>
+                            <span class="cabecera-yo">
+                    <span class="avatar avatar-chico av-acento" aria-hidden="true">EP</span>
+                    <span class="cabecera-quien"><b>PRUEBA, Empleado</b><small>Legajo 1001</small></span>
+                </span>
+                    </nav>
+    </header>
+        <main id="contenido" class="contenido ">
+                            <section class="tarjeta pantalla-simple">
+        <h1>Cambiar clave</h1>
+                <form method="POST" action="/conectica-recibos-demo/b/clave/">
+            <input type="hidden" name="_token" value="demo" autocomplete="off">            <label for="actual">Clave actual</label>
+            <input id="actual" name="actual" type="password" autocomplete="current-password" required>
+            <label for="password">Clave nueva (al menos 10 caracteres, con letras y números)</label>
+            <input id="password" name="password" type="password" autocomplete="new-password" required>
+            <label for="password_confirmation">Repetí la clave nueva</label>
+            <input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password" required>
+            <button type="submit" class="boton-bloque">Guardar clave</button>
+        </form>
+</section>
+    </main>
+    <footer class="pie">Servicio provisto por <b>Conéctica IT</b></footer>
+    <div class="demo-banda" role="note">Demostración con datos inventados · Empleado: CUIL 20-12345678-6, clave 1234 · RRHH: rrhh@conectica-it.com, clave 1234 · Los cambios no se guardan</div></body>
+</html>
