@@ -1,13 +1,17 @@
 ﻿Período;Tipo;CUIL;Legajo;Nombre;Estado;Firmado;Fuera de término;Observación
-"Octubre 2026";Mensual;20-12345678-6;1001;"PRUEBA, Empleado";"Firmado conforme";"16/11/2026 13:07";;
-"Octubre 2026";Mensual;20-28923235-5;1002;"OQUENDO, Oliva";"Firmado conforme";;;
-"Octubre 2026";Mensual;20-43934352-5;1003;"GALLEGOS, Jesús";"Pendiente de firma";;;
-"Octubre 2026";Mensual;20-34322159-3;1004;"AYALA, Santiago";"Firmado en disconformidad";;;
-"Octubre 2026";Mensual;20-34815199-2;1005;"VÁZQUEZ, Gael";"Pendiente de firma";;;
-"Octubre 2026";Mensual;20-49079022-6;1006;"NAVARRETE, Joshua";"Firmado conforme";;;
+"Octubre 2026";Mensual;20-12345678-6;1001;"PRUEBA, Empleado";"Pendiente de firma";;;
+"Octubre 2026";Mensual;20-24680965-9;1002;"FELICIANO, Emiliano";"Firmado conforme";;;
+"Octubre 2026";Mensual;20-36473081-1;1003;"ZAMORA, María Camila";"Pendiente de firma";;;
+"Octubre 2026";Mensual;20-34546520-1;1004;"RAZO, Antonia";"Firmado en disconformidad";;;
+"Octubre 2026";Mensual;20-37830998-1;1005;"NAVARRETE, Ignacio";"Pendiente de firma";;;
+"Octubre 2026";Mensual;20-13889398-8;1006;"ORELLANA, Victoria";"Firmado conforme";;;
+"Octubre 2026";Mensual;27-35111222-6;;"GOMEZ, Martina";"Firmado conforme";"16/11/2026 14:07";;
+"Octubre 2026";Mensual;20-36222333-5;;"RIOS, Tomas";"Pendiente de firma";;;
+"Octubre 2026";Mensual;27-37333444-3;;"FERREYRA, Lucia";"Pendiente de firma";;;
+"Octubre 2026";Mensual;20-38444555-2;;"SOSA, Nicolas";"Pendiente de firma";;;
 "Septiembre 2026";Mensual;20-12345678-6;1001;"PRUEBA, Empleado";"Firmado conforme";;;
-"Septiembre 2026";Mensual;20-28923235-5;1002;"OQUENDO, Oliva";"Firmado conforme";;;
-"Septiembre 2026";Mensual;20-43934352-5;1003;"GALLEGOS, Jesús";"Firmado conforme";;;
-"Septiembre 2026";Mensual;20-34322159-3;1004;"AYALA, Santiago";"Firmado conforme";;;
-"Septiembre 2026";Mensual;20-34815199-2;1005;"VÁZQUEZ, Gael";"Firmado conforme";;;
-"Septiembre 2026";Mensual;20-49079022-6;1006;"NAVARRETE, Joshua";"Firmado conforme";;;
+"Septiembre 2026";Mensual;20-24680965-9;1002;"FELICIANO, Emiliano";"Firmado conforme";;;
+"Septiembre 2026";Mensual;20-36473081-1;1003;"ZAMORA, María Camila";"Firmado conforme";;;
+"Septiembre 2026";Mensual;20-34546520-1;1004;"RAZO, Antonia";"Firmado conforme";;;
+"Septiembre 2026";Mensual;20-37830998-1;1005;"NAVARRETE, Ignacio";"Firmado conforme";;;
+"Septiembre 2026";Mensual;20-13889398-8;1006;"ORELLANA, Victoria";"Firmado conforme";;;

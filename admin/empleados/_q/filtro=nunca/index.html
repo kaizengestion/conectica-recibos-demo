@@ -41,7 +41,7 @@
         <main id="contenido" class="contenido contenido-ancho">
                             <header class="encabezado">
         <h1>Empleados</h1>
-        <p class="encabezado-sub">6 en el padrón · 12 meses de firmas por persona</p>
+        <p class="encabezado-sub">10 en el padrón · 12 meses de firmas por persona</p>
         <span class="encabezado-espacio"></span>
                     <div class="encabezado-acciones">
                                     <a class="boton secundario" href="/conectica-recibos-demo/admin/empleados/importar/">Importar planilla</a>
@@ -59,10 +59,10 @@
     </form>
 
     <nav class="filtros" aria-label="Filtros">
-                    <a class="filtro" href="/conectica-recibos-demo/admin/empleados/">Todos <span class="mono">6</span></a>
-                    <a class="filtro" href="/conectica-recibos-demo/admin/empleados/_q/filtro=activos/">Activos <span class="mono">6</span></a>
+                    <a class="filtro" href="/conectica-recibos-demo/admin/empleados/">Todos <span class="mono">10</span></a>
+                    <a class="filtro" href="/conectica-recibos-demo/admin/empleados/_q/filtro=activos/">Activos <span class="mono">10</span></a>
                     <a class="filtro" href="/conectica-recibos-demo/admin/empleados/_q/filtro=baja/">De baja</a>
-                    <a class="filtro" href="/conectica-recibos-demo/admin/empleados/_q/filtro=nunca/" aria-current="page">Nunca entraron</a>
+                    <a class="filtro" href="/conectica-recibos-demo/admin/empleados/_q/filtro=nunca/" aria-current="page">Nunca entraron <span class="mono">3</span></a>
                     <a class="filtro" href="/conectica-recibos-demo/admin/empleados/_q/filtro=disconformidad/">Con disconformidad <span class="mono">1</span></a>
                     <a class="filtro" href="/conectica-recibos-demo/admin/empleados/_q/filtro=sin_mail/">Sin mail</a>
                 <ul class="leyenda-puntos" aria-label="Referencias de los puntos">
@@ -74,11 +74,91 @@
         </ul>
     </nav>
 
-            <section class="tarjeta">
-        <p>Ningún empleado en este filtro.</p>
-</section>
+            <ul class="grilla-empleados">
+                            <li><article class="ficha">
+    <div class="ficha-cabeza">
+        <span class="avatar avatar-grande av-1" aria-hidden="true">LF</span>
+        <span class="etiqueta etq-sa">Nunca entró</span>
+    </div>
+    <h3>FERREYRA, Lucia</h3>
+    <p class="ficha-id">27-37333444-3</p>
+    <p class="ficha-mail">lucia.ferreyra@ejemplo.com</p>
+    <p class="ficha-meses"><span>12 meses</span><span>DIC 25 → NOV 26</span></p>
+    <ol class="puntos">
+                                <li class="p-fuera" title="Diciembre 2025: fuera del padrón"><i></i><span>D</span></li>
+                                <li class="p-fuera" title="Enero 2026: fuera del padrón"><i></i><span>E</span></li>
+                                <li class="p-fuera" title="Febrero 2026: fuera del padrón"><i></i><span>F</span></li>
+                                <li class="p-fuera" title="Marzo 2026: fuera del padrón"><i></i><span>M</span></li>
+                                <li class="p-fuera" title="Abril 2026: fuera del padrón"><i></i><span>A</span></li>
+                                <li class="p-fuera" title="Mayo 2026: fuera del padrón"><i></i><span>M</span></li>
+                                <li class="p-fuera" title="Junio 2026: fuera del padrón"><i></i><span>J</span></li>
+                                <li class="p-fuera" title="Julio 2026: fuera del padrón"><i></i><span>J</span></li>
+                                <li class="p-fuera" title="Agosto 2026: fuera del padrón"><i></i><span>A</span></li>
+                                <li class="p-fuera" title="Septiembre 2026: fuera del padrón"><i></i><span>S</span></li>
+                                <li class="p-pendiente_firma" title="Octubre 2026: pendiente de firma"><i></i><span>O</span></li>
+                                <li class="p-sin_recibo" title="Noviembre 2026: sin recibo"><i></i><span>N</span></li>
+            </ol>
+    <p class="ficha-resumen"><b class="nunca">Nunca ingresó al portal</b></p>
+            <p class="ficha-acciones"><a href="/conectica-recibos-demo/admin/empleados/9/editar/">Editar</a></p>
+    </article>
+</li>
+                            <li><article class="ficha">
+    <div class="ficha-cabeza">
+        <span class="avatar avatar-grande av-0" aria-hidden="true">TR</span>
+        <span class="etiqueta etq-sa">Nunca entró</span>
+    </div>
+    <h3>RIOS, Tomas</h3>
+    <p class="ficha-id">20-36222333-5</p>
+    <p class="ficha-mail">tomas.rios@ejemplo.com</p>
+    <p class="ficha-meses"><span>12 meses</span><span>DIC 25 → NOV 26</span></p>
+    <ol class="puntos">
+                                <li class="p-fuera" title="Diciembre 2025: fuera del padrón"><i></i><span>D</span></li>
+                                <li class="p-fuera" title="Enero 2026: fuera del padrón"><i></i><span>E</span></li>
+                                <li class="p-fuera" title="Febrero 2026: fuera del padrón"><i></i><span>F</span></li>
+                                <li class="p-fuera" title="Marzo 2026: fuera del padrón"><i></i><span>M</span></li>
+                                <li class="p-fuera" title="Abril 2026: fuera del padrón"><i></i><span>A</span></li>
+                                <li class="p-fuera" title="Mayo 2026: fuera del padrón"><i></i><span>M</span></li>
+                                <li class="p-fuera" title="Junio 2026: fuera del padrón"><i></i><span>J</span></li>
+                                <li class="p-fuera" title="Julio 2026: fuera del padrón"><i></i><span>J</span></li>
+                                <li class="p-fuera" title="Agosto 2026: fuera del padrón"><i></i><span>A</span></li>
+                                <li class="p-fuera" title="Septiembre 2026: fuera del padrón"><i></i><span>S</span></li>
+                                <li class="p-pendiente_firma" title="Octubre 2026: pendiente de firma"><i></i><span>O</span></li>
+                                <li class="p-sin_recibo" title="Noviembre 2026: sin recibo"><i></i><span>N</span></li>
+            </ol>
+    <p class="ficha-resumen"><b class="nunca">Nunca ingresó al portal</b></p>
+            <p class="ficha-acciones"><a href="/conectica-recibos-demo/admin/empleados/8/editar/">Editar</a></p>
+    </article>
+</li>
+                            <li><article class="ficha">
+    <div class="ficha-cabeza">
+        <span class="avatar avatar-grande av-2" aria-hidden="true">NS</span>
+        <span class="etiqueta etq-sa">Nunca entró</span>
+    </div>
+    <h3>SOSA, Nicolas</h3>
+    <p class="ficha-id">20-38444555-2</p>
+    <p class="ficha-mail">nicolas.sosa@ejemplo.com</p>
+    <p class="ficha-meses"><span>12 meses</span><span>DIC 25 → NOV 26</span></p>
+    <ol class="puntos">
+                                <li class="p-fuera" title="Diciembre 2025: fuera del padrón"><i></i><span>D</span></li>
+                                <li class="p-fuera" title="Enero 2026: fuera del padrón"><i></i><span>E</span></li>
+                                <li class="p-fuera" title="Febrero 2026: fuera del padrón"><i></i><span>F</span></li>
+                                <li class="p-fuera" title="Marzo 2026: fuera del padrón"><i></i><span>M</span></li>
+                                <li class="p-fuera" title="Abril 2026: fuera del padrón"><i></i><span>A</span></li>
+                                <li class="p-fuera" title="Mayo 2026: fuera del padrón"><i></i><span>M</span></li>
+                                <li class="p-fuera" title="Junio 2026: fuera del padrón"><i></i><span>J</span></li>
+                                <li class="p-fuera" title="Julio 2026: fuera del padrón"><i></i><span>J</span></li>
+                                <li class="p-fuera" title="Agosto 2026: fuera del padrón"><i></i><span>A</span></li>
+                                <li class="p-fuera" title="Septiembre 2026: fuera del padrón"><i></i><span>S</span></li>
+                                <li class="p-pendiente_firma" title="Octubre 2026: pendiente de firma"><i></i><span>O</span></li>
+                                <li class="p-sin_recibo" title="Noviembre 2026: sin recibo"><i></i><span>N</span></li>
+            </ol>
+    <p class="ficha-resumen"><b class="nunca">Nunca ingresó al portal</b></p>
+            <p class="ficha-acciones"><a href="/conectica-recibos-demo/admin/empleados/10/editar/">Editar</a></p>
+    </article>
+</li>
+                    </ul>
         
     </main>
     <footer class="pie">Servicio provisto por <b>Conéctica IT</b></footer>
-    <div class="demo-banda" role="note">Demostración con datos inventados · Empleado: CUIL 20-12345678-6, clave 1234 · RRHH: rrhh@conectica-it.com, clave 1234 · Los cambios no se guardan</div></body>
+    <div class="demo-banda" role="note">Demostración con datos inventados · Empleada: CUIL 27-35111222-6, clave 1234 · RRHH: rrhh@conectica-it.com, clave 1234 · Los cambios no se guardan</div></body>
 </html>

@@ -48,9 +48,14 @@
                 <label for="accion">Acción</label>
                 <select id="accion" name="accion">
                     <option value="">Todas</option>
+                                            <option value="aceptacion_digital" >aceptacion_digital</option>
                                             <option value="admin_login_ok" >admin_login_ok</option>
+                                            <option value="empleado_creado" >empleado_creado</option>
+                                            <option value="empleados_importados" >empleados_importados</option>
                                             <option value="login_ok" >login_ok</option>
+                                            <option value="pdf_subidos_a_mano" >pdf_subidos_a_mano</option>
                                             <option value="recibo_abierto" >recibo_abierto</option>
+                                            <option value="recibo_asignado" >recibo_asignado</option>
                                             <option value="recibo_firmado" >recibo_firmado</option>
                                     </select>
             </div>
@@ -62,7 +67,7 @@
             <thead><tr><th>Hora</th><th>Quién</th><th>Acción</th><th>Sobre</th><th>Detalle</th><th>IP</th></tr></thead>
             <tbody>
                                     <tr>
-                        <td class="mono">16/11/2026 13:07:48</td>
+                        <td class="mono">16/11/2026 14:07:47</td>
                         <td>admin #1</td>
                         <td>admin_login_ok</td>
                         <td></td>
@@ -70,43 +75,131 @@
                         <td>127.0.0.1</td>
                     </tr>
                                     <tr>
-                        <td class="mono">16/11/2026 13:07:45</td>
-                        <td>empleado #1</td>
+                        <td class="mono">16/11/2026 14:07:44</td>
+                        <td>empleado #7</td>
                         <td>recibo_abierto</td>
-                        <td>Recibo #2</td>
+                        <td>Recibo #13</td>
                         <td><code>{&quot;version&quot;:&quot;firmado&quot;}</code></td>
                         <td>127.0.0.1</td>
                     </tr>
                                     <tr>
-                        <td class="mono">16/11/2026 13:07:34</td>
-                        <td>empleado #1</td>
+                        <td class="mono">16/11/2026 14:07:26</td>
+                        <td>empleado #7</td>
                         <td>recibo_firmado</td>
-                        <td>Recibo #2</td>
+                        <td>Recibo #13</td>
                         <td><code>{&quot;tipo&quot;:&quot;conforme&quot;,&quot;firma_id&quot;:1}</code></td>
                         <td>127.0.0.1</td>
                     </tr>
                                     <tr>
-                        <td class="mono">16/11/2026 13:07:32</td>
-                        <td>empleado #1</td>
+                        <td class="mono">16/11/2026 14:07:21</td>
+                        <td>empleado #7</td>
                         <td>recibo_abierto</td>
-                        <td>Recibo #1</td>
+                        <td>Recibo #13</td>
                         <td><code>{&quot;version&quot;:&quot;original&quot;}</code></td>
                         <td>127.0.0.1</td>
                     </tr>
                                     <tr>
-                        <td class="mono">16/11/2026 13:07:30</td>
-                        <td>empleado #1</td>
-                        <td>recibo_abierto</td>
-                        <td>Recibo #2</td>
-                        <td><code>{&quot;version&quot;:&quot;original&quot;}</code></td>
+                        <td class="mono">16/11/2026 14:07:14</td>
+                        <td>empleado #7</td>
+                        <td>aceptacion_digital</td>
+                        <td></td>
+                        <td><code>{&quot;texto_version&quot;:&quot;2026-10-06&quot;,&quot;user_agent&quot;:&quot;Playwright\/1.56.1 (x64; windows 10.0) node\/26.13&quot;}</code></td>
                         <td>127.0.0.1</td>
                     </tr>
                                     <tr>
-                        <td class="mono">16/11/2026 13:07:25</td>
-                        <td>empleado #1</td>
+                        <td class="mono">16/11/2026 14:07:08</td>
+                        <td>empleado #7</td>
                         <td>login_ok</td>
                         <td></td>
                         <td><code></code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:56</td>
+                        <td>admin #1</td>
+                        <td>recibo_asignado</td>
+                        <td>Recibo #13</td>
+                        <td><code>{&quot;empleado_id&quot;:7,&quot;periodo_id&quot;:2,&quot;empleado_anterior_id&quot;:null,&quot;periodo_anterior_id&quot;:null,&quot;estado_anterior&quot;:&quot;sin_asignar&quot;}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:53</td>
+                        <td>admin #1</td>
+                        <td>recibo_asignado</td>
+                        <td>Recibo #14</td>
+                        <td><code>{&quot;empleado_id&quot;:8,&quot;periodo_id&quot;:2,&quot;empleado_anterior_id&quot;:null,&quot;periodo_anterior_id&quot;:null,&quot;estado_anterior&quot;:&quot;sin_asignar&quot;}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:50</td>
+                        <td>admin #1</td>
+                        <td>recibo_asignado</td>
+                        <td>Recibo #15</td>
+                        <td><code>{&quot;empleado_id&quot;:9,&quot;periodo_id&quot;:2,&quot;empleado_anterior_id&quot;:null,&quot;periodo_anterior_id&quot;:null,&quot;estado_anterior&quot;:&quot;sin_asignar&quot;}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:46</td>
+                        <td>admin #1</td>
+                        <td>recibo_asignado</td>
+                        <td>Recibo #16</td>
+                        <td><code>{&quot;empleado_id&quot;:10,&quot;periodo_id&quot;:2,&quot;empleado_anterior_id&quot;:null,&quot;periodo_anterior_id&quot;:null,&quot;estado_anterior&quot;:&quot;sin_asignar&quot;}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:38</td>
+                        <td>admin #1</td>
+                        <td>pdf_subidos_a_mano</td>
+                        <td></td>
+                        <td><code>{&quot;archivos&quot;:1,&quot;por_resultado&quot;:{&quot;procesado&quot;:1},&quot;nombres&quot;:[&quot;recibos-octubre.pdf&quot;]}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:30</td>
+                        <td>admin #1</td>
+                        <td>empleados_importados</td>
+                        <td></td>
+                        <td><code>{&quot;creados&quot;:4,&quot;actualizados&quot;:0,&quot;errores&quot;:0}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:30</td>
+                        <td>admin #1</td>
+                        <td>empleado_creado</td>
+                        <td>Empleado #10</td>
+                        <td><code>{&quot;origen&quot;:&quot;importacion&quot;,&quot;campos&quot;:[&quot;cuil&quot;,&quot;nombre&quot;,&quot;email&quot;]}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:29</td>
+                        <td>admin #1</td>
+                        <td>empleado_creado</td>
+                        <td>Empleado #9</td>
+                        <td><code>{&quot;origen&quot;:&quot;importacion&quot;,&quot;campos&quot;:[&quot;cuil&quot;,&quot;nombre&quot;,&quot;email&quot;]}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:28</td>
+                        <td>admin #1</td>
+                        <td>empleado_creado</td>
+                        <td>Empleado #8</td>
+                        <td><code>{&quot;origen&quot;:&quot;importacion&quot;,&quot;campos&quot;:[&quot;cuil&quot;,&quot;nombre&quot;,&quot;email&quot;]}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:27</td>
+                        <td>admin #1</td>
+                        <td>empleado_creado</td>
+                        <td>Empleado #7</td>
+                        <td><code>{&quot;origen&quot;:&quot;importacion&quot;,&quot;campos&quot;:[&quot;cuil&quot;,&quot;nombre&quot;,&quot;email&quot;]}</code></td>
+                        <td>127.0.0.1</td>
+                    </tr>
+                                    <tr>
+                        <td class="mono">16/11/2026 14:06:21</td>
+                        <td>admin #1</td>
+                        <td>admin_login_ok</td>
+                        <td></td>
+                        <td><code>{&quot;sin_codigo&quot;:true}</code></td>
                         <td>127.0.0.1</td>
                     </tr>
                             </tbody>
@@ -115,5 +208,5 @@
     
     </main>
     <footer class="pie">Servicio provisto por <b>Conéctica IT</b></footer>
-    <div class="demo-banda" role="note">Demostración con datos inventados · Empleado: CUIL 20-12345678-6, clave 1234 · RRHH: rrhh@conectica-it.com, clave 1234 · Los cambios no se guardan</div></body>
+    <div class="demo-banda" role="note">Demostración con datos inventados · Empleada: CUIL 27-35111222-6, clave 1234 · RRHH: rrhh@conectica-it.com, clave 1234 · Los cambios no se guardan</div></body>
 </html>

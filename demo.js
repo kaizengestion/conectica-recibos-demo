@@ -1,4 +1,4 @@
-window.DEMO={"base":"/conectica-recibos-demo","firma":{"recibo":"2","destino":"/conectica-recibos-demo/b/__firma/"}};
+window.DEMO={"base":"/conectica-recibos-demo","firma":{"recibo":"13","destino":"/conectica-recibos-demo/b/__firma/"}};
 // Demo estática: los formularios no van a un servidor; cada envío lleva a la pantalla capturada que corresponde.
 (function () {
   'use strict';
@@ -30,7 +30,8 @@ window.DEMO={"base":"/conectica-recibos-demo","firma":{"recibo":"2","destino":"/
     var metodo = (form.getAttribute('method') || 'get').toLowerCase();
     var ir = null;
     if (metodo === 'get') { aviso('En la demo los filtros y búsquedas no están activos.'); return; }
-    if (r === '/ingresar') ir = '/inicio/';
+    if (r === '/ingresar') ir = '/aceptacion/';
+    else if (r === '/aceptacion') ir = '/inicio/';
     else if (r === '/admin/ingresar') ir = '/admin/';
     else if (r === '/salir') ir = '/ingresar/';
     else if (r === '/admin/salir') ir = '/admin/ingresar/';
